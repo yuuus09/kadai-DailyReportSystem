@@ -35,8 +35,26 @@
                                 <fmt:formatDate value="${report.updated_at}" pattern="yyyy-MM-dd HH:mm:ss" />
                             </td>
                         </tr>
+
+                        <!-- いいね！数を表示 -->
+                        <tr>
+                            <th>いいね！</th>
+                            <td><c:out value="${report.likes}" /></td>
+                        </tr>
+
                     </tbody>
                 </table>
+
+                <br>
+                <!-- いいね！ボタンを追加 -->
+
+                <c:if test="${sessionScope.login_employee.id != report.employee.id}">
+
+                    <form method="POST" action="<c:url value='/reports/show' />">
+                        <input type="hidden" name="report_id" value="${report.id}">
+                            <button type="submit" name="likes">いいね！</button>
+                    </form>
+                </c:if>
 
                 <c:if test="${sessionScope.login_employee.id == report.employee.id}">
                     <p><a href="<c:url value="/reports/edit?id=${report.id}" />">この日報を編集する</a></p>
